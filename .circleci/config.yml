@@ -12,12 +12,12 @@ jobs:
       - checkout
       - run:
           name: "Setup custom environment variables"
-          command: >
-            echo 'export SNOWFLAKE_ACCOUNT="${SNOWFLAKE_ACCOUNT}"' >> "$BASH_ENV" &&\
-            echo 'export SNOWFLAKE_USER="${SNOWFLAKE_USER}"' >> "$BASH_ENV" &&\
-            echo 'export SNOWFLAKE_PASSWORD="${SNOWFLAKE_PASSWORD}"' >> "$BASH_ENV" &&\
-            echo 'export SNOWFLAKE_ROLE="${SNOWFLAKE_ROLE}"' >> "$BASH_ENV" &&\
-            echo 'export SNOWFLAKE_DATABASE="${SNOWFLAKE_DATABASE}"' >> "$BASH_ENV" &&\
+          command: |
+            echo 'export SNOWFLAKE_ACCOUNT="${SNOWFLAKE_ACCOUNT}"' >> "$BASH_ENV"
+            echo 'export SNOWFLAKE_USER="${SNOWFLAKE_USER}"' >> "$BASH_ENV"
+            echo 'export SNOWFLAKE_PASSWORD="${SNOWFLAKE_PASSWORD}"' >> "$BASH_ENV"
+            echo 'export SNOWFLAKE_ROLE="${SNOWFLAKE_ROLE}"' >> "$BASH_ENV"
+            echo 'export SNOWFLAKE_DATABASE="${SNOWFLAKE_DATABASE}"' >> "$BASH_ENV"
             echo 'export SNOWFLAKE_WAREHOUSE="${SNOWFLAKE_WAREHOUSE}"' >> "$BASH_ENV"
       - run: pip install -r .circleci/requirements.txt
       - run:
