@@ -10,33 +10,35 @@ jobs:
 
     steps:
       - checkout
-      - run: pip install -r .circleci/requirements.txt
+      - run:
+          name: "Setup custom environment variables"
+          command: echo 'export SNOWFLAKE_ACCOUNT="${SNOWFLAKE_ACCOUNT}"' >> "$BASH_ENV"
       - run:
           name: "Test env variables"
           command: echo ${SNOWFLAKE_ACCOUNT}
-          environment:
-            SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
-      - run:
-          name: "Generate artifacts"
-          command: ./.circleci/run_test.sh snowflake
-          environment:
-            SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
-            SNOWFLAKE_USER: ${SNOWFLAKE_USER}
-            SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
-            SNOWFLAKE_ROLE: $SNOWFLAKE_ROLE
-            SNOWFLAKE_DATABASE: $SNOWFLAKE_DATABASE
-            SNOWFLAKE_WAREHOUSE: $SNOWFLAKE_WAREHOUSE
-      - aws-s3/sync:
-          from: target
-          to: 's3://my-dbt-site-test-bucket'
-          arguments: |
-            --exclude "*" \
-            --include "index.html" \
-            --include "catalog.json" \
-            --include "manifest.json"
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_REGION
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+
+      # - run: pip install -r .circleci/requirements.txt
+      # - run:
+      #     name: "Generate artifacts"
+      #     command: ./.circleci/run_test.sh snowflake
+      #     environment:
+      #       SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
+      #       SNOWFLAKE_USER: ${SNOWFLAKE_USER}
+      #       SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
+      #       SNOWFLAKE_ROLE: $SNOWFLAKE_ROLE
+      #       SNOWFLAKE_DATABASE: $SNOWFLAKE_DATABASE
+      #       SNOWFLAKE_WAREHOUSE: $SNOWFLAKE_WAREHOUSE
+      # - aws-s3/sync:
+      #     from: target
+      #     to: 's3://my-dbt-site-test-bucket'
+      #     arguments: |
+      #       --exclude "*" \
+      #       --include "index.html" \
+      #       --include "catalog.json" \
+      #       --include "manifest.json"
+      #     aws-access-key-id: AWS_ACCESS_KEY_ID
+      #     aws-region: AWS_REGION
+      #     aws-secret-access-key: AWS_SECRET_ACCESS_KEY
 
 workflows:
   version: 2
