@@ -13,3 +13,5 @@ export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection
 dbt debug --profile integration_tests --target $1
+
+dbt docs generate --profile integration_tests --target $1
