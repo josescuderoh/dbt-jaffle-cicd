@@ -10,6 +10,9 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: "Setup custom environment variables"
+          command: echo 'export SNOWFLAKE_ACCOUNT="${SNOWFLAKE_ACCOUNT}"' >> "$BASH_ENV"
       - run: pip install -r .circleci/requirements.txt
       - run:
           name: "Generate artifacts"
