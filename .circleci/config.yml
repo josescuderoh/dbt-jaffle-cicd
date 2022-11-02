@@ -24,23 +24,8 @@ jobs:
       - store_artifacts:
           path: ./logs
 
-  integration-snowflake:
-    docker:
-      - image: cimg/python:3.9
-    steps:
-      - checkout
-      - run: pip install --pre dbt-snowflake -r .circleci/requirements.txt
-      - run:
-          name: "Run OG Tests - Snowflake"
-          command: ./run_test.sh snowflake
-      - store_artifacts:
-          path: ./logs
-
 workflows:
   version: 2
   test-all:
     jobs:
       - integration-postgres
-      - integration-snowflake:
-          requires:
-            - integration-postgres
