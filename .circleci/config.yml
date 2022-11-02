@@ -14,8 +14,14 @@ jobs:
           name: "Setup custom environment variables"
           command: echo 'export SNOWFLAKE_ACCOUNT="${SNOWFLAKE_ACCOUNT}"' >> "$BASH_ENV"
       - run:
+          name: "Setup custom environment variables"
+          command: echo 'export MY_ENV_VAR="FOO"' >> "$BASH_ENV"
+      - run:
           name: "Test env variables"
           command: echo ${SNOWFLAKE_ACCOUNT}
+      - run:
+          name: "Test env variables"
+          command: echo ${MY_ENV_VAR}
 
       # - run: pip install -r .circleci/requirements.txt
       # - run:
