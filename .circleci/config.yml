@@ -20,7 +20,7 @@ jobs:
       - run: pip install --pre dbt-postgres -r .circleci/requirements.txt
       - run:
           name: "Run OG Tests - Postgres"
-          command: ./run_test.sh postgres
+          command: ./.circleci/run_test.sh postgres
       - store_artifacts:
           path: ./logs
 
