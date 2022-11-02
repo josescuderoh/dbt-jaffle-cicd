@@ -21,17 +21,17 @@ jobs:
             SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
             SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
             SNOWFLAKE_WAREHOUSE: ${SNOWFLAKE_WAREHOUSE}
-      # - aws-s3/sync:
-      #     from: target
-      #     to: 's3://my-dbt-site-test-bucket'
-      #     arguments: |
-      #       --exclude "*" \
-      #       --include "index.html" \
-      #       --include "catalog.json" \
-      #       --include "manifest.json"
-      #     aws-access-key-id: AWS_ACCESS_KEY_ID
-      #     aws-region: AWS_REGION
-      #     aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      - aws-s3/sync:
+          from: target
+          to: 's3://my-dbt-site-test-bucket'
+          arguments: |
+            --exclude "*" \
+            --include "index.html" \
+            --include "catalog.json" \
+            --include "manifest.json"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
 
 workflows:
   version: 2

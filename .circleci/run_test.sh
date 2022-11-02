@@ -6,6 +6,8 @@ echo $(which dbt)
 # Show version and installed adapters
 dbt --version
 
+echo $SNOWFLAKE_ACCOUNT
+
 # Set the profile
 cd .circleci
 cp sample.profiles.yml profiles.yml
