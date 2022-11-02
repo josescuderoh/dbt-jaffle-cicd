@@ -14,5 +14,5 @@ cp sample.profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection
-dbt debug --profile cicd_pipeline --target $1
-dbt docs generate --profile cicd_pipeline --target $1
+# dbt debug --profile cicd_pipeline --target $1
+dbt docs generate # --profile cicd_pipeline --target $1
