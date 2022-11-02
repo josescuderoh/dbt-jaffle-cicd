@@ -4,7 +4,7 @@ orbs:
   aws-s3: circleci/aws-s3@3.0
 
 jobs:
-  integration-postgres:
+  generate-aritifacts:
     docker:
       - image: cimg/python:3.9
     environment:
@@ -17,6 +17,10 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: "Print context"
+          command: |
+            echo $SNOWFLAKE_USER
       - run: pip install -r .circleci/requirements.txt
       - run:
           name: "Generate artifacts"
@@ -35,6 +39,6 @@ jobs:
 
 workflows:
   version: 2
-  test-all:
+  update-website:
     jobs:
-      - integration-postgres
+      - generate-aritifacts
