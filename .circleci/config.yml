@@ -7,24 +7,20 @@ jobs:
   generate-aritifacts:
     docker:
       - image: cimg/python:3.9
-    environment:
-      SNOWFLAKE_ACCOUNT: $SNOWFLAKE_ACCOUNT
-      SNOWFLAKE_USER: $SNOWFLAKE_USER
-      SNOWFLAKE_PASSWORD: $SNOWFLAKE_PASSWORD
-      SNOWFLAKE_ROLE: $SNOWFLAKE_ROLE
-      SNOWFLAKE_DATABASE: $SNOWFLAKE_DATABASE
-      SNOWFLAKE_WAREHOUSE: $SNOWFLAKE_WAREHOUSE
 
     steps:
       - checkout
-      - run:
-          name: "Print context"
-          command: |
-            echo $SNOWFLAKE_USER
       - run: pip install -r .circleci/requirements.txt
       - run:
           name: "Generate artifacts"
           command: ./.circleci/run_test.sh snowflake
+          environment:
+            SNOWFLAKE_ACCOUNT: $SNOWFLAKE_ACCOUNT
+            SNOWFLAKE_USER: $SNOWFLAKE_USER
+            SNOWFLAKE_PASSWORD: $SNOWFLAKE_PASSWORD
+            SNOWFLAKE_ROLE: $SNOWFLAKE_ROLE
+            SNOWFLAKE_DATABASE: $SNOWFLAKE_DATABASE
+            SNOWFLAKE_WAREHOUSE: $SNOWFLAKE_WAREHOUSE
       - aws-s3/sync:
           from: target
           to: 's3://my-dbt-site-test-bucket/target'
