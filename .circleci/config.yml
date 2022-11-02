@@ -23,11 +23,14 @@ jobs:
       - run:
           name: "Run OG Tests - Postgres"
           command: ./.circleci/run_test.sh postgres
-      - run: ls
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          from: README.md
-          to: 's3://my-dbt-site-test-bucket/files'
+      - aws-s3/sync:
+          from: target
+          to: 's3://my-dbt-site-test-bucket/target'
+          arguments: |
+            --exclude "*" \
+            --include "index.html" \
+            --include "catalog.json" \
+            --include "manifest.json"
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
