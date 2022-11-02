@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: economy
+    database: economy_data_atlas
+    schema: economy
+
+    freshness:
+      warn_after:
+        count: 2
+        period: day
+
+    tables:
+      - name: exratescc2018
