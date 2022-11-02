@@ -7,7 +7,7 @@ echo $(which dbt)
 dbt --version
 
 # Set the profile
-cd .cicd
+cd .circleci
 cp sample.profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 
