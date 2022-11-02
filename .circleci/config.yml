@@ -18,7 +18,7 @@ jobs:
           command: echo 'export MY_ENV_VAR="FOO"' >> "$BASH_ENV"
       - run:
           name: "Test env variables"
-          command: echo ${SNOWFLAKE_ACCOUNT}
+          command: echo ${SNOWFLAKE_USER}
       - run:
           name: "Test env variables"
           command: echo ${MY_ENV_VAR}
