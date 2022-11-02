@@ -1,7 +1,8 @@
 version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@3.0
 
 jobs:
-
   integration-postgres:
     docker:
       - image: cimg/python:3.9
@@ -21,8 +22,14 @@ jobs:
       - run:
           name: "Run OG Tests - Postgres"
           command: ./.circleci/run_test.sh postgres
-      - store_artifacts:
-          path: ./logs
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: README.md
+          to: 's3://my-dbt-site-test-bucket/files'
+          aws-access-key-id: ${AWS_ACCESS_KEY_ID}
+          aws-region: ${AWS_REGION}
+          aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY_ID}
+
 
 workflows:
   version: 2

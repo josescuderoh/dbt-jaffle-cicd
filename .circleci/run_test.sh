@@ -12,4 +12,4 @@ cp sample.profiles.yml profiles.yml
 export DBT_PROFILES_DIR=.
 
 # Show the location of the profiles directory and test the connection
-dbt debug --target $1
+dbt debug --profile integration_tests --target $1
